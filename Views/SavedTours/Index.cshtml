@@ -1,0 +1,109 @@
+﻿@model IEnumerable<proekt_turizam.Models.SavedTour>
+
+@{
+    ViewBag.Title = "My Saved Tours";
+}
+
+<style>
+    .card.saved-tour-card {
+        background-color: #F9F2E8 !important;
+        border: none !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        overflow: hidden !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+        .card.saved-tour-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .card.saved-tour-card .card-body {
+            text-align: center !important;
+            padding: 20px !important;
+            background-color: #F9F2E8 !important;
+        }
+
+        .card.saved-tour-card .card-title {
+            font-weight: bold !important;
+            color: #2E8B57 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .card.saved-tour-card p {
+            color: #444 !important;
+            margin: 5px 0 !important;
+        }
+
+        .card.saved-tour-card .btn {
+            background-color: #2E8B57 !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 8px !important;
+            margin: 5px !important;
+            transition: background-color 0.2s ease !important;
+        }
+
+            .card.saved-tour-card .btn:hover {
+                background-color: #256B45 !important;
+                color: #fff !important;
+            }
+    .booking-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* keep everything centered horizontally */
+        gap: 6px;
+        font-size: 15px;
+    }
+
+        .booking-info div {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* controls how wide the info lines are */
+            max-width: 250px;
+        }
+
+        .booking-info strong {
+            color: black;
+            width: 50%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .booking-info span {
+            text-align: left;
+            flex: 1;
+        }
+
+</style>
+
+<main>
+    <h2 class="text-center mb-4 fw-bold" style="color: #2E8B57;">My Saved Tours</h2>
+
+    <div class="row">
+        @foreach (var savedTour in Model)
+        {
+            <div class="col-md-4 mb-4 saved-tour-item">
+                <div class="card saved-tour-card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title">@savedTour.Tour.Title</h3>
+
+                        <div class="booking-info">
+                            <div><strong>City:</strong> <span>@savedTour.Tour.City</span></div>
+                            <div><strong>Region:</strong> <span>@savedTour.Tour.Region</span></div>
+                            <div><strong>Start:</strong> <span>@savedTour.Tour.StartDate.ToString("yyyy-MM-dd")</span></div>
+                            <div><strong>End:</strong> <span>@savedTour.Tour.EndDate.ToString("yyyy-MM-dd")</span></div>
+                            <div><strong>Price:</strong> <span>@savedTour.Tour.Price.ToString("C")</span></div>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <a href="@Url.Action("Details", "Tours", new { id = savedTour.TourId })" class="btn">View Tour</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</main>

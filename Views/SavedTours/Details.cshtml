@@ -1,0 +1,42 @@
+﻿@model proekt_turizam.Models.SavedTour
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SavedTour</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tour.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tour.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SavedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SavedOn)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SavedTourId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<proekt_turizam.Models.Booking>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "My Bookings";
+}
+
+<style>
+    .card.booking-card {
+        background-color: #F9F2E8 !important;
+        border: none !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        overflow: hidden !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+        .card.booking-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .card.booking-card .card-body {
+            text-align: center !important;
+            padding: 20px !important;
+            background-color: #F9F2E8 !important;
+        }
+
+        .card.booking-card .card-title {
+            font-weight: bold !important;
+            color: #2E8B57 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .card.booking-card p {
+            color: #444 !important;
+            margin: 5px 0 !important;
+        }
+
+        .card.booking-card .btn {
+            background-color: #2E8B57 !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 8px !important;
+            margin: 5px !important;
+            transition: background-color 0.2s ease !important;
+        }
+
+            .card.booking-card .btn:hover {
+                background-color: #256B45 !important;
+                color: #fff !important;
+            }
+    .booking-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* keep everything centered horizontally */
+        gap: 6px;
+        font-size: 15px;
+    }
+
+        .booking-info div {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* controls how wide the info lines are */
+            max-width: 250px;
+        }
+
+        .booking-info strong {
+            color: black;
+            width: 50%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .booking-info span {
+            text-align: left;
+            flex: 1;
+        }
+
+</style>
+
+<main>
+    <h2 class="text-center mb-4 fw-bold" style="color: #2E8B57;">My Bookings</h2>
+
+    <div class="row">
+        @foreach (var booking in Model)
+        {
+            <div class="col-md-4 mb-4 booking-item">
+                <div class="card booking-card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">@booking.Tour.Title</h2>
+
+                        <div class="booking-info">
+                            <div><strong>City:</strong> <span>@booking.Tour.City</span></div>
+                            <div><strong>Region:</strong> <span>@booking.Tour.Region</span></div>
+                            <div><strong>Start:</strong> <span>@booking.Tour.StartDate.ToString("yyyy-MM-dd")</span></div>
+                            <div><strong>End:</strong> <span>@booking.Tour.EndDate.ToString("yyyy-MM-dd")</span></div>
+                            <div><strong>Price:</strong> <span>@booking.Tour.Price.ToString("C")</span></div>
+                            <div><strong>People:</strong> <span>@booking.NumberOfPeople</span></div>
+                            <div><strong>Total:</strong> <span>@(booking.Tour.Price * booking.NumberOfPeople).ToString("C")</span></div>
+                            <div><strong>Booking Date:</strong> <span>@booking.BookingDate.ToString("yyyy-MM-dd")</span></div>
+                            <div><strong>Status:</strong> <span class="fw-bold">@booking.Status</span></div>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <a href="@Url.Action("Details", "Tours", new { id = booking.TourId })" class="btn">View Tour</a>
+
+                            @if (User.IsInRole("TourGuide") && booking.Tour.TourGuideId == User.Identity.GetUserId())
+                            {
+                                <a href="@Url.Action("ChangeStatus", "Bookings", new { id = booking.BookingId, status = proekt_turizam.Models.BookingStatus.Confirmed })" class="btn">Accept</a>
+                                <a href="@Url.Action("ChangeStatus", "Bookings", new { id = booking.BookingId, status = proekt_turizam.Models.BookingStatus.Cancelled })" class="btn">Cancel</a>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</main>

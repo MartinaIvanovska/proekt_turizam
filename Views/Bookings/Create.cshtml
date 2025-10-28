@@ -1,0 +1,37 @@
+﻿@model proekt_turizam.Models.Booking
+
+@{
+    ViewBag.Title = "Booking Confirmation";
+}
+
+<h2>Booking Confirmation</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.TourId)
+
+<div class="form-horizontal">
+    <h4>You're booking: @ViewBag.TourTitle (@ViewBag.TourCity, @ViewBag.TourRegion)</h4>
+    <p>Price: @ViewBag.TourPrice €</p>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NumberOfPeople, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.NumberOfPeople, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1" } })
+        @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
+    </div>
+
+
+    <input type="submit" value="Confirm Booking" class="btn btn-primary" />
+</div>
+}
+
+
+<div>
+    @Html.ActionLink("View all my bookings", "Index", null, new { @class = "btn btn-link" })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

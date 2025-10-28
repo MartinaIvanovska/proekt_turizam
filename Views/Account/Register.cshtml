@@ -1,0 +1,54 @@
+﻿@model proekt_turizam.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg" style="background-color: #F9F2E8; width: 40%; border-radius: 20px;">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Register</h2>
+            <hr />
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger mb-3" })
+
+                <dl class="row">
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.Email)</dt>
+                    <dd class="col-sm-8">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </dd>
+
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.Password)</dt>
+                    <dd class="col-sm-8">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </dd>
+
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.ConfirmPassword)</dt>
+                    <dd class="col-sm-8">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm your password" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </dd>
+
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.SelectedRole)</dt>
+                    <dd class="col-sm-8">
+                        @Html.DropDownListFor(m => m.SelectedRole, Model.Roles, "Select a role", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.SelectedRole, "", new { @class = "text-danger" })
+                    </dd>
+                </dl>
+
+                <div class="text-center mt-4">
+                    <input type="submit" value="Register" class="btn btn-success mx-2" />
+                    @Html.ActionLink("Back to Login", "Login", null, new { @class = "btn btn-outline-success mx-2" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,206 @@
+﻿@model IEnumerable<proekt_turizam.Models.Tour>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<style>
+    .card.tour-card {
+        background-color: #F9F2E8 !important;
+        border: none !important;
+        border-radius: 15px !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+        overflow: hidden !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    }
+
+        .card.tour-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .card.tour-card img {
+            display: block !important;
+            width: 100% !important;
+            height: 180px !important;
+            object-fit: cover !important;
+            border-radius: 0 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .card.tour-card .card-body {
+            text-align: center !important;
+            padding: 20px !important;
+            background-color: #F9F2E8 !important;
+        }
+
+        .card.tour-card .card-title {
+            font-weight: bold !important;
+            color: #2E8B57 !important;
+            margin-bottom: 10px !important;
+        }
+
+        .card.tour-card p {
+            color: #444 !important;
+            margin: 5px 0 !important;
+        }
+
+        .card.tour-card .btn {
+            background-color: #2E8B57 !important;
+            color: #fff !important;
+            border: none !important;
+            border-radius: 8px !important;
+            margin: 5px !important;
+            transition: background-color 0.2s ease !important;
+        }
+
+            .card.tour-card .btn:hover {
+                background-color: #256B45 !important;
+                color: #fff !important;
+            }
+
+    #pagination-container {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+        #pagination-container li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+            #pagination-container li a,
+            #pagination-container li span {
+                display: inline-block;
+                padding: 0.375rem 0.75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                text-align: center;
+                text-decoration: none;
+                border: 1px solid transparent;
+                border-radius: 0.375rem;
+                cursor: pointer;
+                color: #fff;
+                background-color: #0d6efd;
+                border-color: #0d6efd;
+                transition: background-color 0.2s;
+            }
+
+                #pagination-container li a:hover {
+                    background-color: #136941;
+                    border-color: #136941;
+                }
+
+                #pagination-container li span.current {
+                    background-color: #198754;
+                    border-color: #198754;
+                }
+    .booking-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* keep everything centered horizontally */
+        gap: 6px;
+        font-size: 15px;
+    }
+
+        .booking-info div {
+            display: flex;
+            justify-content: space-between;
+            width: 80%; /* controls how wide the info lines are */
+            max-width: 250px;
+        }
+
+        .booking-info strong {
+            color: black;
+            width: 50%;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+        .booking-info span {
+            text-align: left;
+            flex: 1;
+        }
+
+</style>
+
+<main>
+  
+
+    <div id="tour-container">
+        <div class="row">
+            @foreach (var tour in Model.Reverse())
+            {
+                <div class="col-md-4 mb-4 tour-item">
+                    <div class="card tour-card h-100">
+                        @if (!string.IsNullOrEmpty(tour.MainImageUrl))
+                        {
+                            <img src="@tour.MainImageUrl" alt="@tour.Title" />
+                        }
+                        <div class="card-body">
+                            <h3 class="card-title">@tour.Title</h3>
+
+                            <div class="booking-info">
+                                <div><strong>Short:</strong> <span>@tour.ShortDescription</span></div>
+                                <div><strong>Description:</strong> <span>@tour.Description</span></div>
+                                <div><strong>Type:</strong> <span>@tour.TourType</span></div>
+                                <div><strong>City:</strong> <span>@tour.City</span></div>
+                                <div><strong>Region:</strong> <span>@tour.Region</span></div>
+                                <div><strong>Price:</strong> <span>@tour.Price.ToString("C")</span></div>
+                                <div><strong>Start:</strong> <span>@tour.StartDate.ToString("yyyy-MM-dd")</span></div>
+                                <div><strong>End:</strong> <span>@tour.EndDate.ToString("yyyy-MM-dd")</span></div>
+                                <div><strong>Guide:</strong> <span>@(tour.TourGuide?.Email ?? "N/A")</span></div>
+                            </div>
+
+                            <div class="text-center mt-3">
+                                <a href="@Url.Action("Details", "Tours", new { id = tour.TourId })" class="btn">View Details</a>
+
+                                @if (User.IsInRole("Tourist"))
+                                {
+                                    <a href="@Url.Action("Create", "Bookings", new { id = tour.TourId })" class="btn">Book Tour</a>
+                                    <a href="@Url.Action("Create", "SavedTours", new { id = tour.TourId })" class="btn">Save Tour</a>
+                                }
+
+                                @if (User.IsInRole("TourGuide"))
+                                {
+                                    <a href="@Url.Action("Edit", "Tours", new { id = tour.TourId })" class="btn">Edit</a>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="pagination-container"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js"></script>
+    <script>
+        $.getScript("https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.min.js", function () {
+            var items = $(".tour-item");
+            var numItems = items.length;
+            var perPage = 6;
+
+            items.slice(perPage).hide();
+
+            $('#pagination-container').pagination({
+                items: numItems,
+                itemsOnPage: perPage,
+                prevText: 'Prev',
+                nextText: 'Next',
+                onPageClick: function (pageNumber) {
+                    var showFrom = perPage * (pageNumber - 1);
+                    var showTo = showFrom + perPage;
+                    items.hide().slice(showFrom, showTo).fadeIn();
+                }
+            });
+        });
+    </script>
+</main>

@@ -1,0 +1,26 @@
+﻿
+
+@model IEnumerable<proekt_turizam.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Pending Tour Guides";
+}
+
+<h2>Pending Tour Guides</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>
+                @Html.ActionLink("Approve", "Approve", new { id = user.Id }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+</table>

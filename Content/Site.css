@@ -1,0 +1,128 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Custom Navbar Styling */
+.custom-navbar {
+    background-color: #F9F2E8 !important;
+    color: #2E8B57 !important;
+    font-family: 'Poppins', sans-serif; /* Suggested font */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+    /* Navbar Brand */
+    .custom-navbar .navbar-brand {
+        color: #2E8B57 !important;
+        font-weight: 600;
+        font-size: 1.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Navbar Links */
+    .custom-navbar .nav-link {
+        color: #2E8B57 !important;
+        font-weight: 500;
+        transition: color 0.2s ease-in-out;
+    }
+
+        .custom-navbar .nav-link:hover {
+            color: #3FAE6E !important;
+        }
+
+/* Navbar Logo */
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+
+/* =========================
+   Hero Banner Styling
+   ========================= */
+.hero-banner {
+    position: relative;
+    background-image: url('/Content/banner_mk.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 60vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+/*    margin-bottom: 15px;*/
+}
+
+/* Dark transparent overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+}
+
+/* Text content on top */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 20px;
+}
+
+    .hero-content h1 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 2.8rem;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        color: #F8F4EF;
+    }
+
+    .hero-content p {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 1.2rem;
+        color: #F8F4EF;
+    }
+ body {
+        background: #2E8B57 !important;
+    }
+
+
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+    .hero-banner {
+        height: 40vh;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+   
+}
+

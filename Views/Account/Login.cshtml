@@ -1,0 +1,57 @@
+﻿@using proekt_turizam.Models
+@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg" style="background-color: #F9F2E8; width: 40%; border-radius: 20px;">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Log In</h2>
+            <hr />
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger mb-3" })
+
+                <dl class="row">
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.Email)</dt>
+                    <dd class="col-sm-8">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Enter your email" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </dd>
+
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.Password)</dt>
+                    <dd class="col-sm-8">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </dd>
+
+                    <dt class="col-sm-4 fw-bold">@Html.LabelFor(m => m.RememberMe)</dt>
+                    <dd class="col-sm-8">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                            <label class="form-check-label" for="RememberMe">Remember me</label>
+                        </div>
+                    </dd>
+                </dl>
+
+                <div class="text-center mt-4">
+                    <input type="submit" value="Log In" class="btn btn-success mx-2" />
+                    @Html.ActionLink("Register", "Register", null, new { @class = "btn btn-outline-success mx-2" })
+                </div>
+            }
+
+            @*<div class="text-center mt-4">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </div>*@
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
