@@ -4,32 +4,42 @@
     ViewBag.Title = "Booking Confirmation";
 }
 
-<h2>Booking Confirmation</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg" style="background-color: #F9F2E8; width: 50%; border-radius: 20px;">
+        <div class="card-body">
+            <h2 class="text-center mb-4 text-success">Booking Confirmation</h2>
+            <hr />
 
-    @Html.HiddenFor(model => model.TourId)
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="form-horizontal">
-    <h4>You're booking: @ViewBag.TourTitle (@ViewBag.TourCity, @ViewBag.TourRegion)</h4>
-    <p>Price: @ViewBag.TourPrice €</p>
+                @Html.HiddenFor(model => model.TourId)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.NumberOfPeople, htmlAttributes: new { @class = "control-label" })
-        @Html.EditorFor(model => model.NumberOfPeople, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1" } })
-        @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
+                <div class="mb-4">
+                    <h5 class="fw-bold text-center">
+                        You're booking: @ViewBag.TourTitle
+                        <span class="fw-normal">(@ViewBag.TourCity, @ViewBag.TourRegion)</span>
+                    </h5>
+                    <p class="text-center">Price: <strong>@ViewBag.TourPrice €</strong></p>
+                </div>
+
+                <div class="form-group mb-3">
+                    @Html.LabelFor(model => model.NumberOfPeople, htmlAttributes: new { @class = "fw-bold" })
+                    @Html.EditorFor(model => model.NumberOfPeople, new { htmlAttributes = new { @class = "form-control", type = "number", min = "1" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfPeople, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="text-center mt-4">
+                    <input type="submit" value="Confirm Booking" class="btn btn-success mx-2" />
+                    <a href="@Url.Action("Index", "Bookings")" class="btn btn-outline-secondary mx-2">Cancel</a>
+                </div>
+            }
+
+           
+        </div>
     </div>
-
-
-    <input type="submit" value="Confirm Booking" class="btn btn-primary" />
-</div>
-}
-
-
-<div>
-    @Html.ActionLink("View all my bookings", "Index", null, new { @class = "btn btn-link" })
 </div>
 
 @section Scripts {

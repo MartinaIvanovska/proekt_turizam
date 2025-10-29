@@ -1,30 +1,42 @@
 ﻿@model proekt_turizam.Models.SavedTour
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Save Tour";
 }
 
-<h2>Do you want to save this tour?</h2>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+    <div class="card shadow-lg" style="background-color: #F9F2E8; width: 50%; border-radius: 20px;">
+        <div class="card-body">
+            <h2 class="text-center mb-4 text-success">Save Tour</h2>
+            <h5 class="text-center mb-4">Do you want to save this tour?</h5>
+            <hr />
 
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.TourId)
 
-    @Html.HiddenFor(model => model.TourId)
+                <div class="mb-4 text-center">
+                    <h5 class="fw-bold">
+                        You're saving: @ViewBag.TourTitle
+                        <span class="fw-normal">(@ViewBag.TourCity, @ViewBag.TourRegion)</span>
+                    </h5>
+                    <p>Price: <strong>@ViewBag.TourPrice €</strong></p>
+                </div>
 
-    <div class="form-horizontal">
-        <h4>You're saving: @ViewBag.TourTitle (@ViewBag.TourCity, @ViewBag.TourRegion)</h4>
-        <p>Price: @ViewBag.TourPrice €</p>
+                <div class="text-center mt-4">
+                    <input type="submit" value="Save" class="btn btn-success mx-2" />
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary mx-2">Cancel</a>
+                </div>
+            }
 
-
-        <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="text-center mt-3">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-link">Back to Home</a>
+            </div>
+        </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

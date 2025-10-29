@@ -79,7 +79,7 @@
 </style>
 
 <main>
-    <h2 class="text-center mb-4 fw-bold" style="color: #2E8B57;">My Saved Tours</h2>
+    <h2 class="text-center mb-4 fw-bold" style="color: #094008;">My Saved Tours</h2>
 
     <div class="row">
         @foreach (var savedTour in Model)
@@ -99,6 +99,7 @@
 
                         <div class="text-center mt-3">
                             <a href="@Url.Action("Details", "Tours", new { id = savedTour.TourId })" class="btn">View Tour</a>
+                            <a href="@Url.Action("Delete", "SavedTours", new { id = savedTour.SavedTourId })" class="btn">Remove</a>
                         </div>
                     </div>
 

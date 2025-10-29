@@ -150,11 +150,12 @@
                             <p>@(tour.TourGuide?.Email)</p>
                             <div>
                                 <a href="@Url.Action("Details", "Tours", new { id = tour.TourId })" class="btn">View Details</a>
-                                @if (User.IsInRole("Tourist"))
+                                @if (User.IsInRole("Tourist") && tour.StartDate > DateTime.Now)
                                 {
                                     <a href="@Url.Action("Create", "Bookings", new { id = tour.TourId })" class="btn">Book Tour</a>
                                     <a href="@Url.Action("Create", "SavedTours", new { id = tour.TourId })" class="btn">Save Tour</a>
                                 }
+
                             </div>
                         </div>
                     </div>

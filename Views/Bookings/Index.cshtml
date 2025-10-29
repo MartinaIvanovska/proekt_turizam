@@ -80,7 +80,7 @@
 </style>
 
 <main>
-    <h2 class="text-center mb-4 fw-bold" style="color: #2E8B57;">My Bookings</h2>
+    <h2 class="text-center mb-4 fw-bold" style="color: #094008; ">My Bookings</h2>
 
     <div class="row">
         @foreach (var booking in Model)
@@ -110,6 +110,11 @@
                                 <a href="@Url.Action("ChangeStatus", "Bookings", new { id = booking.BookingId, status = proekt_turizam.Models.BookingStatus.Confirmed })" class="btn">Accept</a>
                                 <a href="@Url.Action("ChangeStatus", "Bookings", new { id = booking.BookingId, status = proekt_turizam.Models.BookingStatus.Cancelled })" class="btn">Cancel</a>
                             }
+                            @if (User.IsInRole("Tourist"))
+                            {
+                                <a href="@Url.Action("Delete", "Bookings", new { id = booking.BookingId, status = proekt_turizam.Models.BookingStatus.Confirmed })" class="btn">Remove</a>
+                            }
+
                         </div>
                     </div>
 
