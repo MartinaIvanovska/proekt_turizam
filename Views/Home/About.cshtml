@@ -1,11 +1,107 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<main aria-labelledby="title">
-    <h2 id="title">Patuvaj</h2>
 
-    <p>
-        Patuvaj makes discovering and booking local tours easy! Independent tour guides can share their unique experiences,
-        and travelers can find and book adventures that match their style, making every trip unforgettable. Your next adventure is just a tap away!
-    </p>
+<style>
+    body {
+        background-color: #F9F2E8;
+    }
+
+    .about-section {
+        background-color: #F9F2E8;
+        color: #444;
+        padding: 60px 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        max-width: 900px;
+        margin: 40px auto;
+        text-align: center;
+    }
+
+        .about-section h2 {
+            color: #2E8B57;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+    .about-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .about-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        padding: 25px;
+        width: 270px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-card h5 {
+            color: #2E8B57;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .about-card p {
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+    .about-footer {
+        margin-top: 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2E8B57;
+    }
+</style>
+
+<main>
+    <section class="about-section">
+        <h2>About Patuvaj</h2>
+        <p>
+            Patuvaj makes discovering and booking local tours easy! 
+            Independent tour guides can share their unique experiences, and travelers can find adventures that match their style — making every trip unforgettable.
+        </p>
+        <p>
+            Whether you're looking for a mountain escape, a cultural walk through history, or a hidden culinary experience, Patuvaj connects you directly with the people who make Macedonia magical.
+        </p>
+
+        <div class="about-cards">
+            <div class="about-card">
+                <h5>🌍 Discover</h5>
+                <p>Explore tours created by passionate local guides and uncover the authentic side of every destination.</p>
+            </div>
+
+            <div class="about-card">
+                <h5>🎒 Book Easily</h5>
+                <p>Reserve your spot on the go — fast, secure, and stress-free. Your next adventure is just a tap away!</p>
+            </div>
+
+            <div class="about-card">
+                <h5>🤝 Empower Guides</h5>
+                <p>Support independent tour guides by helping them share their stories and experiences directly with travelers.</p>
+            </div>
+        </div>
+
+        <div class="about-footer">
+            Start your next adventure with <span style="font-weight:700;">Patuvaj</span> today 🌿
+        </div>
+    </section>
 </main>

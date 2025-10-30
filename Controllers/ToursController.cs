@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace proekt_turizam.Controllers
 {
@@ -104,6 +105,7 @@ namespace proekt_turizam.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(tour);
         }
 
@@ -112,10 +114,18 @@ namespace proekt_turizam.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TourId,Title,ShortDescription,Description,TourType,City,Region,Price,StartDate,EndDate,TourGuideId")] Tour tour)
+        public ActionResult Edit([Bind(Include = "TourId,Title,ShortDescription,Description,TourType,City,Region,Price,StartDate,EndDate,TourGuideId")] Tour tour,
+    HttpPostedFileBase MainImage)
         {
             if (ModelState.IsValid)
             {
+                // Get the original tour from DB
+                var existingTour = db.Tours.AsNoTracking().FirstOrDefault(t => t.TourId == tour.TourId);
+                
+                    // ✅ Keep old image if no new one uploaded
+                tour.MainImageUrl = existingTour.MainImageUrl;
+                tour.TourGuideId = existingTour.TourGuideId;
+
                 db.Entry(tour).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -24,6 +24,7 @@ namespace proekt_turizam.Controllers
             var bookings = db.Bookings
                 .Include(b => b.Tour)
                 .Where(b => b.TouristId == userId || b.Tour.TourGuideId == userId)
+                .OrderByDescending(t => t.TourId)
                 .ToList();
 
             

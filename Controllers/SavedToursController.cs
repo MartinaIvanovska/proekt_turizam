@@ -18,7 +18,7 @@ namespace proekt_turizam.Controllers
         // GET: SavedTours
         public ActionResult Index()
         {
-            var savedTours = db.SavedTours.Include(s => s.Tour);
+            var savedTours = db.SavedTours.Include(s => s.Tour).OrderByDescending(t => t.TourId);
             return View(savedTours.ToList());
         }
 

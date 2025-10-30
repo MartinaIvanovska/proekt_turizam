@@ -146,7 +146,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@tour.Title</h5>
                             <p>@tour.ShortDescription</p>
-                            <p>@tour.City</p>
+                            @*<p>@tour.City</p>*@
                             <p>@(tour.TourGuide?.Email)</p>
                             <div>
                                 <a href="@Url.Action("Details", "Tours", new { id = tour.TourId })" class="btn">View Details</a>
@@ -155,7 +155,7 @@
                                     <a href="@Url.Action("Create", "Bookings", new { id = tour.TourId })" class="btn">Book Tour</a>
                                     <a href="@Url.Action("Create", "SavedTours", new { id = tour.TourId })" class="btn">Save Tour</a>
                                 }
-
+                                @*<a href="@Url.Action("Delete", "Tours", new { id = tour.TourId })" class="btn">delete</a>*@
                             </div>
                         </div>
                     </div>
